@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import HTTPException
 import  httpx
 
 app = FastAPI()
@@ -19,14 +20,14 @@ async def get_pokemon_ability(pokemon_ability: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(pokemon_ability_url)
         if response.status_code != 200:
-             return {"error": "Pokemon not found"}
+             raise HTTPException(status_code=404, detail="pokemon not found")
         data =  response.json()
         
         for ability in data.get('abilities',[]):
             ability_names = ability['ability']['name']
             pokemon_ability = ability_names
             return {
-                "abilities":pokemon_ability
+                "ability":pokemon_ability
             }
         
 @app.get("/api/pokemon_color/{pokemon_color}")
@@ -36,9 +37,9 @@ async def get_pokemon_color(pokemon_color:str):
     async with httpx.AsyncClient() as client:
         response  = await client.get(pokemon_color_url)
         if response.status_code != 200:
-            return {
-                "error":"pokemon not found"
-            }
+            raise HTTPException(status_code=404, detail="pokemon not found")
+        
+        
         data = response.json()
         iterate:int = 0
         data_values:list= []
@@ -65,6 +66,7 @@ async def get_pokemon_color(pokemon_color:str):
             return {
                 "color":color
             }
+            
         
                 
                  
