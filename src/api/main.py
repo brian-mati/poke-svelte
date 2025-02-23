@@ -42,7 +42,8 @@ async def get_pokemon_color(pokemon_color:str):
         data = response.json()
         iterate:int = 0
         data_values:list= []
-        color = ''
+        color_dict = ''
+        color:str = ''
         while iterate < len(data):
             
             for x in data:
@@ -57,8 +58,13 @@ async def get_pokemon_color(pokemon_color:str):
             for el in data_values:
                 if isinstance(el,dict):
                     if 'name' in el:
-                        color = el
+                        color_dict = el
                         break
-        return color
+        for el in color_dict.values():
+            color =  el
+            return {
+                "color":color
+            }
+        
                 
                  
