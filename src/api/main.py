@@ -7,6 +7,7 @@ app = FastAPI()
 pokemon_ability:str = ''
 pokemon_color:str = ''
 
+
 # the element actually being passed is the pokemons name in the request from the client for (pokemon ability and pokemon color)
 @app.get("/api/pokemon_details")
 def read_root():
@@ -41,13 +42,23 @@ async def get_pokemon_color(pokemon_color:str):
         data = response.json()
         iterate:int = 0
         data_values:list= []
-        color:str = ''
+        color = ''
         while iterate < len(data):
             
             for x in data:
                 data_values.append(data[x])
             iterate = iterate + 1
         
-        return data_values
+        second_iterate:int = 0
+    
+        
+        while second_iterate < len(data_values):
+            second_iterate = second_iterate + 1
+            for el in data_values:
+                if isinstance(el,dict):
+                    if 'name' in el:
+                        color = el
+                        break
+        return color
                 
                  
