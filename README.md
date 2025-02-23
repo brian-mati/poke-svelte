@@ -4,7 +4,7 @@ pass search parameters for a pokemon
 
 should return a response with the pokemons 
 
-gender 
+gender-rate
 color 
 ability -  
         ability name
