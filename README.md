@@ -7,5 +7,5 @@ should return a response with the pokemons
 gender-rate 
 color 'complete'
 ability -  
-        ability name
+        ability name 'complete'
         ability descirption 
